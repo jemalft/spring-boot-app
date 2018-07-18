@@ -17,9 +17,14 @@ pipeline {
         sh './gradlew test'
       }
     }
+    stage('Static Analysis') {
+      steps {
+        sh './gradlew checkstyleMain checkstyleTest findbugsMain findbugsTest'
+      }
+    }
     stage('Build') {
       steps {
-        sh './gradlew -x test build'
+        sh './gradlew -x test -x check build'
       }
     }
   }
